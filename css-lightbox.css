@@ -1,0 +1,172 @@
+/*
+ * Adapted from http://tympanus.net/codrops/2011/12/26/css3-lightbox/
+ * Extra class and tag names are for extra specificity, to help increase odds of overriding theme CSS
+*/
+
+/*-------------
+On-page image
+-------------*/
+a.lightbox-link {
+	position: relative;
+	display: inline-block;
+	text-decoration: none;
+	/* Some themes use borders as custom underlines */
+	border-bottom: none;
+}
+.lightbox-link > .lightbox-target {
+	display: block;
+}
+.lightbox-link > .lightbox-enlarge {
+	position: absolute;
+	top: 0;
+	left: 0;
+	/* Remove default theme <p> margin and padding */
+	margin: 0;
+	padding: 0;
+}
+.lightbox-enlarge::before {
+	/* Magnifying glass icon */
+	content: "\f179";
+	font-family: "dashicons";
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 22px;
+	width: 1.5em;
+	height: 1.5em;
+	/* Vertical center */
+	line-height: 1.5em;
+	text-align: center;
+	color: rgb(100, 100, 100);
+	background-color: white;
+	transition: color, background-color .5s;
+}
+.lightbox-link:hover > .lightbox-enlarge::before {
+	color: white;
+	background-color: rgb(100, 100, 100);
+}
+
+/*------------
+Image Overlay
+------------*/
+div.lightbox-overlay {
+	/* Some themes make all divs border-box, override that */
+	box-sizing: content-box;
+	position: fixed;
+	/* 
+	 * Need to use 0 width and height instead of display: none;
+	 * because changes to display conflict with image opacity transition
+	*/
+	height: 0;
+	width: 0;
+	left: 0;
+	top: 0;
+	padding: 0;
+	z-index: 99;
+ 	/* Baseline for em units */
+	font-size: 18px;
+	background: 
+		radial-gradient(
+			center, 
+			ellipse cover, 
+			rgba(255,255,255,0.56) 0%,
+			rgba(195,195,205,1) 100%
+		);
+	background:
+		-webkit-radial-gradient(
+			center, 
+			ellipse cover, 
+			rgba(255,255,255,0.56) 0%,
+			rgba(195,195,205,1) 100%
+		);
+	background:
+		-moz-radial-gradient(
+			center, 
+			ellipse cover, 
+			rgba(255,255,255,0.56) 0%,
+			rgba(195,195,205,1) 100%
+		);
+}
+div.lightbox-overlay:target {
+	height: auto;
+	width: auto;
+	bottom: 0;
+	right: 0;
+	padding: 3em 10% 8em;
+}
+.lightbox-overlay > .lightbox-image {
+	max-height: 100%;
+	position: relative;
+	opacity: 0;
+	box-shadow: 0 .25em .5em rgba(0,0,0,0.2);
+	transition: opacity 0.25s linear;
+	-webkit-transition: opacity 0.25s linear;
+}
+.lightbox-overlay:target > .lightbox-image {
+	opacity: 1;
+}
+.lightbox-overlay > .lightbox-close {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	width: 2em;
+	height: 2em;
+	z-index: 1001;
+	font-family: sans-serif;
+	text-align: center;
+	line-height: 2em;
+	color: white;
+	font-weight: bold;
+	background: rgb(100, 100, 100);
+	background: rgba(100, 100, 100, .9);
+	text-decoration: none;
+	/* Some themes use borders as custom underlines */
+	border-bottom: none;
+	-webkit-transition: transform .25s;
+	transition: transform .25s;
+}
+.lightbox-overlay > .lightbox-close:hover {
+	-webkit-transform: scale(.9);
+	transform: scale(.9);
+}
+@media(min-width: 48em) {
+	.lightbox-overlay > .lightbox-close {
+		font-size: 1.5em;
+		right: 2em;
+	}
+}
+.lightbox-overlay > .lightbox-inner {
+	display: none;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	/*
+	 * 3em = Double the padding.
+	 * For browsers that support calc(), this makes the box truly 100%,
+	 * instead of 100% + the total horizontal padding.
+	*/
+	width: calc(100% - 3em);
+	background-color: rgb(100, 100, 100);
+	background-color: rgba(100, 100, 100, .9);
+	padding: 1.5em;
+}
+.lightbox-overlay:target > .lightbox-inner {
+	display: block;
+	/* To get around the margin-left: 10%; from the overlay container */
+	margin-left: -10%;
+}
+.lightbox-inner > .lightbox-title {
+	/* Override theme default <h3> margin and padding */
+	margin: 0 0 .5em 0;
+	padding: 0;
+	color: lemonchiffon;
+	text-align: left;
+}
+.lightbox-inner > .lightbox-caption {
+	max-width: 40em;
+	/* Override default theme <p> margin and padding */
+	margin: .5em 0 0 0;
+	padding: 0;
+	text-align: left;
+	color: white;
+}
