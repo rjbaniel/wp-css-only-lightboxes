@@ -3,9 +3,9 @@
 /**
 * Plugin Name: CSS-Only Lightbox
 * Description: Adds a shortcode and TinyMCE button for creating CSS-only lightboxes for images. Format is [css_lightbox id="uniqueID" height="400" width="400" title="A title" caption="A caption" alt="Some alt text" icon="true"]Image URL[/css_lightbox]
-* Version: 0.0.1
+* Version: 1.0
 * Author: Daniel Jones
-* Text Domain: css-lightbox
+* Text Domain: wp-css-only-lightboxes
 **/
 
 if ( ! defined( 'ABSPATH' ) )
@@ -48,7 +48,7 @@ function css_lightbox( $atts, $content = 'null' ) {
 	}
 	// If the user hasn't given a valid URL or an ID, then we don't display the image
 	if ( empty( $content ) || empty( $atts['id'] ) )
-		return '<p>' . __( 'Sorry, there was an error displaying this image', 'css-lightbox' ) . '</p>';
+		return '<p>' . __( 'Sorry, there was an error displaying this image', 'wp-css-only-lightboxes' ) . '</p>';
 	else {
 		wp_enqueue_style( 'css-lightbox-styles' );
 		ob_start(); ?>
@@ -116,3 +116,8 @@ function css_lightbox_add_i18n( $locales ) {
 	$locales['css_lightbox_button'] = plugin_dir_path( __FILE__ ) . 'css-lightbox-tinymce-i18n.php';
 	return $locales;
 }
+
+function css_lightbox_load_textdomain() {
+	load_plugin_textdomain( 'wp-css-only-lightboxes' );
+}
+add_action( 'plugins_loaded', 'css_lightbox_load_textdomain' );

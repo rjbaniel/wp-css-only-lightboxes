@@ -10,13 +10,13 @@ if ( ! class_exists( '_WP_Editors' ) )
 
 function css_lightbox_tinymce_plugin_translation() {
 	$strings = array(
-		'icon' => __( 'Show enlarge icon on image?', 'css-lightbox' ),
-		'alt' => __( 'Alt text for the on-page image', 'css-lightbox' ),
-		'height' => __( 'Height for the on-page image (in pixels, without adding px)', 'css-lightbox' ),
-		'width' => __( 'Width for the on-page image (in pixels, without adding px)', 'css-lightbox' ),
-		'caption' => __( 'Caption for the large image', 'css-lightbox' ),
-		'title' => __( 'Title for the large image', 'css-lightbox' ),
-		'id' => __( 'Unique ID for image (Required)', 'css-lightbox' )
+		'icon' => __( 'Show enlarge icon on image?', 'wp-css-only-lightboxes' ),
+		'alt' => __( 'Alt text for the on-page image', 'wp-css-only-lightboxes' ),
+		'height' => __( 'Height for the on-page image (in pixels, without adding px)', 'wp-css-only-lightboxes' ),
+		'width' => __( 'Width for the on-page image (in pixels, without adding px)', 'wp-css-only-lightboxes' ),
+		'caption' => __( 'Caption for the large image', 'wp-css-only-lightboxes' ),
+		'title' => __( 'Title for the large image', 'wp-css-only-lightboxes' ),
+		'id' => __( 'Unique ID for image (Required)', 'wp-css-only-lightboxes' )
 	);
 
 	$locale = _WP_Editors::$mce_locale;
