@@ -69,22 +69,22 @@ div.lightbox-overlay {
 		radial-gradient(
 			center, 
 			ellipse cover, 
-			rgba(255,255,255,0.56) 0%,
-			rgba(195,195,205,1) 100%
+			rgba(255,255,255,0.7) 0%,
+			rgba(165,165,5,1) 100%
 		);
 	background:
 		-webkit-radial-gradient(
 			center, 
 			ellipse cover, 
-			rgba(255,255,255,0.56) 0%,
-			rgba(195,195,205,1) 100%
+			rgba(255,255,255,0.7) 0%,
+			rgba(165,165,175,1) 100%
 		);
 	background:
 		-moz-radial-gradient(
 			center, 
 			ellipse cover, 
-			rgba(255,255,255,0.56) 0%,
-			rgba(195,195,205,1) 100%
+			rgba(255,255,255,0.7) 0%,
+			rgba(165,165,175,1) 100%
 		);
 }
 div.lightbox-overlay:target {
@@ -95,8 +95,9 @@ div.lightbox-overlay:target {
 	padding: 3em 10% 8em;
 }
 .lightbox-overlay > .lightbox-image {
+	display: block;
 	max-height: 100%;
-	position: relative;
+	margin: 0 auto;
 	opacity: 0;
 	box-shadow: 0 .25em .5em rgba(0,0,0,0.2);
 	transition: opacity 0.25s linear;
@@ -125,7 +126,8 @@ div.lightbox-overlay:target {
 	-webkit-transition: transform .25s;
 	transition: transform .25s;
 }
-.lightbox-overlay > .lightbox-close:hover {
+.lightbox-overlay > .lightbox-close:hover,
+.lightbox-overlay > .lightbox-close:focus {
 	-webkit-transform: scale(.9);
 	transform: scale(.9);
 }
@@ -139,16 +141,11 @@ div.lightbox-overlay:target {
 	display: none;
 	position: fixed;
 	bottom: 0;
+	right: 0;
 	width: 100%;
-	/*
-	 * 3em = Double the padding.
-	 * For browsers that support calc(), this makes the box truly 100%,
-	 * instead of 100% + the total horizontal padding.
-	*/
-	width: calc(100% - 3em);
+	padding: 1.5em;
 	background-color: rgb(100, 100, 100);
 	background-color: rgba(100, 100, 100, .9);
-	padding: 1.5em;
 }
 .lightbox-overlay:target > .lightbox-inner {
 	display: block;
@@ -169,4 +166,19 @@ div.lightbox-overlay:target {
 	padding: 0;
 	text-align: left;
 	color: white;
+}
+.lightbox-inner > .lightbox-download {
+	display: none;
+}
+.lightbox-inner > .lightbox-download > a:hover,
+.lightbox-inner > .lightbox-download > a:focus {
+	text-decoration: underline;
+}
+@media(min-width: 40em) {
+	.lightbox-inner > .lightbox-download {
+		display: block;
+		position: absolute;
+		right: 1.5em;
+		top: 1.5em;
+	}
 }

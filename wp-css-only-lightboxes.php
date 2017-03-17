@@ -14,7 +14,10 @@ if ( ! defined( 'ABSPATH' ) )
 function css_lightbox_init() {
 	wp_register_style( 'css-lightbox-styles', plugins_url( 'css-lightbox.css', __FILE__ ), array(), '0.0.1', 'screen' );
 	add_shortcode( 'css_lightbox', 'css_lightbox' );
+}
+add_action( 'init', 'css_lightbox_init' );
 
+function css_lightbox_admin_init() {
 	/*
 	 * Tinymce shortcode button taken from
 	 * http://wordpress.stackexchange.com/questions/72394/how-to-add-a-shortcode-button-to-the-tinymce-editor
@@ -29,7 +32,7 @@ function css_lightbox_init() {
 	// Add a callback to internationalize the plugin strings
 	add_filter('mce_external_languages', 'css_lightbox_add_i18n');
 }
-add_action( 'init', 'css_lightbox_init' );
+add_action( 'admin_init', 'css_lightbox_admin_init' );
 
 function css_lightbox( $atts, $content = 'null' ) {
 	$atts = shortcode_atts( array(
@@ -39,7 +42,9 @@ function css_lightbox( $atts, $content = 'null' ) {
 		'alt' => '',
 		'title' => '',
 		'caption' => '',
-		'icon' => 'true'
+		'icon' => 'true',
+		'js' => 'false',
+		'download' => 'false',
 	), $atts );
 
 	// Validate the URL
@@ -51,6 +56,9 @@ function css_lightbox( $atts, $content = 'null' ) {
 		return '<p>' . __( 'Sorry, there was an error displaying this image', 'wp-css-only-lightboxes' ) . '</p>';
 	else {
 		wp_enqueue_style( 'css-lightbox-styles' );
+		if ( $atts['js'] == 'true' ) {
+			wp_enqueue_script( 'css-lightbox', plugins_url( 'css-lightbox.js', __FILE__ ), array(), '0.0.1', true );
+		}
 		ob_start(); ?>
 			<a class="lightbox-link" href="#<?php echo $atts['id'] ?>">
 				<?php
@@ -89,6 +97,9 @@ function css_lightbox( $atts, $content = 'null' ) {
 					
 						if ( ! empty( $atts['caption'] ) )
 							echo '<p class="lightbox-caption">' . esc_html( $atts['caption'] ) . '</p>';
+
+						if ( $atts['download'] == 'true' )
+							echo '<p class="lightbox-download"><a href="' . esc_url( $content ) . '">Download image</p>';
 						echo '</div>';
 					}
 				?>
